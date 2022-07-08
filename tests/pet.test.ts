@@ -11,7 +11,7 @@ describe("User can", () => {
     const result = await pet.getById("3");
     assert(
       result.id === 3,
-      `Expected response with id equlas 1, but got ${result.id}`
+      `Expected response with id equlas 3, but got ${result.id}`
     );
   });
 
