@@ -4,7 +4,7 @@
   "description": "",
   "scripts": {
     "test": "mocha --require ts-node/register ./tests/**/*.test.ts",
-    "test1": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src 'tests/**/*.test.{ts,tsx}'"
+    "test-watch": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src 'tests/**/*.test.{ts,tsx}'"
   },
   "keywords": [],
   "author": "",

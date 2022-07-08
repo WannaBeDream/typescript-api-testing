@@ -1,20 +1,27 @@
 import axios from "axios";
 import { strict as assert } from "assert";
+import { URLSearchParams } from "url";
+import { PetController } from "./../api/controller/pet.controller";
+
+const pet = new PetController();
 
 describe("User can", () => {
-  it("receaive pet by his id", async () => {
-    let response: any;
-    
-    try {
-      response = await axios.get("https://petstore.swagger.io/v2/pet/2");
-    } catch (error) {
-      console.error(error);
-    }
-    const body = response.data;
 
+  it("receive pet by his id", async () => {
+    const result = await pet.getById("3");
     assert(
-      body.id === 2,
-      `Expected response with id equlas 1, but got ${body.id}`
+      result.id === 3,
+      `Expected response with id equlas 1, but got ${result.id}`
+    );
+  });
+
+  it("find pets by pending status", async () => {
+    const result = await pet.findByStatus("pending");
+    assert(
+      result.every((pet:any)=> {
+        return pet.status === "pending"
+      }),
+      `Every pet in the response must contain pending status`
     );
   });
 });
