@@ -1,6 +1,8 @@
 import axios from "axios";
 import { URLSearchParams } from "url";
-import {definitions, operations} from "../../.temp/types"
+import { definitions, operations } from "../../.temp/types";
+import { validateBodyBySchemas } from "../requestInterceptors";
+
 
 export class StoreController {
   instance: any = axios.create({
@@ -8,9 +10,18 @@ export class StoreController {
     headers: { "X-Custom-Header": "foobar" },
   });
 
-  async getInventory(): Promise<operations["getInventory"]["responses"]["200"]["schema"]> { // correct example
+  useSchemaValidation() {
+    this.instance.interceptors.response.use((value: any) => {
+      return validateBodyBySchemas(value);
+    });
+  }
+
+  async getInventory(): Promise<
+    operations["getInventory"]["responses"]["200"]["schema"]
+  > {
+    // correct example
     const response = await this.instance.get(`inventory`);
+
     return response.data;
   }
- 
 }
