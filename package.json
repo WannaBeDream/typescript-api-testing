@@ -3,6 +3,8 @@
   "version": "1.0.0",
   "description": "",
   "scripts": {
+    "postinstall": "npm run pretest",
+    "pretest": "openapi-typescript https://petstore.swagger.io/v2/swagger.json --output ./.temp/types.ts",
     "test": "mocha --require ts-node/register ./tests/**/*.test.ts",
     "test-watch": "mocha --require ts-node/register --extensions ts,tsx --watch --watch-files src 'tests/**/*.test.{ts,tsx}'"
   },
@@ -13,7 +15,8 @@
     "@types/mocha": "^9.1.1",
     "@types/node": "^18.0.3",
     "axios": "^0.27.2",
-    "mocha": "^10.0.0"
+    "mocha": "^10.0.0",
+    "openapi-typescript": "^5.4.1"
   },
   "devDependencies": {
     "@types/axios": "^0.14.0",
