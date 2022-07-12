@@ -5,7 +5,7 @@ export async function validateBodyBySchemas(response: any) {
     openApiSpecPath: "https://petstore.swagger.io/v2/swagger.json",
     apiPathPrefix: "/v2",
     ajvOptions: {
-        strict: true,
+        strict: false,
       allErrors: true,
       verbose: true,
       formats: {
@@ -18,7 +18,7 @@ export async function validateBodyBySchemas(response: any) {
 
   await responseValidator.assertResponse({
     method: response.config.method,
-    requestUrl: response.config.baseURL,
+    requestUrl: response.config.baseURL + response.config.url,
     statusCode: response.status,
     body: response.data,
   });

@@ -1,23 +1,23 @@
 import { strict as assert } from "assert";
-import { PetController } from "./../api/controller/pet.controller";
-import {definitions, operations} from "../.temp/types"
 
-const pet = new PetController();
-pet.useSchemaValidation()
+import {definitions, operations} from "../.temp/types"
+import { ApiClient } from "../api/client";
+
+
 
 
 describe("User can",async () => {
 
   it("receive pet by his id", async () => {
-    const result = await pet.getById("10");
+    const result = await ApiClient.unauthorized().pet.getById(2);
     assert(
-      result.id === 10,
-      `Expected response with id equlas 10, but got ${result.id}`
+      result.id === 2,
+      `Expected response with id equlas 2, but got ${result.id}`
     );
   });
 
   it("find pets by pending status", async () => {
-    const result = await pet.findByStatus("pending");
+    const result = await ApiClient.unauthorized().pet.findByStatus("pending");
     assert(
       result.every((pet) => {
         return pet.status === "pending";
@@ -43,7 +43,7 @@ describe("User can",async () => {
     //   status: "available",
     // };
 
-    // const addedPet = await pet.addNew(petToCreate);
+    // const addedPet = await ApiClient.unauthorized().pet.addNew(petToCreate);
     // assert.deepEqual(
     //   addedPet,
     //   {
@@ -53,7 +53,7 @@ describe("User can",async () => {
     //   "Expected created pet to match data used upon creation"
     // );
 
-    // const foundaddedPet = await pet.getById(addedPet.id as string | number); // issue 404 here ( API bug )
+    // const foundaddedPet = await ApiClient.unauthorized().pet.getById(addedPet.id as string | number); // issue 404 here ( API bug )
 
     // assert.deepEqual(
     //   foundaddedPet,
@@ -80,7 +80,7 @@ describe("User can",async () => {
     //   ],
     //   status: "available",
     // };
-    // const updatedPet = await pet.update(petToUpdate); // issue 500 here ( API bug )
+    // const updatedPet =  await ApiClient.unauthorized().pet.update(petToUpdate); // issue 500 here ( API bug )
 
     // assert.deepEqual(
     //   updatedPet,
@@ -88,7 +88,7 @@ describe("User can",async () => {
     //   "Expected updated pet to equal data used upon updating"
     // );
 
-    // await pet.deleteById(addedPet.id as string | number) // issue 404 ( API bug)
+    // await ApiClient.unauthorized().pet.deleteById(addedPet.id as string | number) // issue 404 ( API bug)
 
     // TODO assert 404 for delete action 
   });
